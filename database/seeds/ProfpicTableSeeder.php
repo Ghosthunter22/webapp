@@ -12,6 +12,6 @@ class ProfpicTableSeeder extends Seeder
      */
     public function run()
     {
-        
+        factory(App\Profpic::class, 50)->create();
     }
 }
