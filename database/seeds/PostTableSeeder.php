@@ -1,0 +1,25 @@
+<?php
+
+use App\Post;
+use Illuminate\Database\Seeder;
+
+class PostTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        factory(App\Post::class, 50)->create();
+
+        $p = new Post;
+        $p->post ="Generic Post";
+        $p->posted_at = "2019-11-11 11:42:29";
+        $p->basic_user_id = 51;
+        $p->created_at= "2019-11-11 11:42:29";
+        $p->updated_at= "2019-11-11 11:42:29";
+        $p->save();
+    }
+}
