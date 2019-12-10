@@ -10,5 +10,7 @@ $factory->define(BasicUser::class, function (Faker $faker) {
         'username' => $faker->userName(),
         'name' => $faker->name(),
         'email' => $faker->unique()->email(),
-        'password' => $faker->password(),    ];
+        'email_verified_at' => now(),
+        'password' => $faker->password(),
+        'remember_token' => Str::random(10),    ];
 });
