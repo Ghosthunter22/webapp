@@ -6,7 +6,7 @@
     <p>Users:</p>
     <ul>
         @foreach ($basic_users as $basic_user)
-            <li>{{ $basic_user->basic_user }}</li>
+            <li>{{ $basic_user->username }}</li>
         @endforeach
     </ul>
 @endsection
