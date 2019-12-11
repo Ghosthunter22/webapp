@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -36,7 +36,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'username' => 'required|unique:users|max:255',
+            'name' => 'required|max:255',
+            'email' => 'required|unique:users|max:225',
+            'password' => 'required|max:255',
+        ]);
+        $u = new User;
+        $u->username = $validatedData['username'];
+        $u->name = $validatedData['name'];
+        $u->email = $validatedData['email'];
+        $u->password = $validatedData['password'];
+        $u->save();
+
+        session()->flash('message', 'User was created.');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -45,9 +59,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('users.show', ['user' => $user]);
     }
 
     /**
@@ -79,8 +93,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('users.index')->with('message', 'Animal was deleted');
     }
 }

@@ -12,13 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome');  
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('home', 'HomeController@index')->name('home');
 
-Route::get('/users', 'UserController@index');
+Route::get('users', 'UserController@index')->name('users.index');
+Route::get('users/create', 'UserController@create')->name('users.create');
+Route::post('users','UserController@store')->name('users.store');
+Route::get('users/{user}', 'UserController@show')->name('users.show');
+Route::get('users/{user}', 'UserController@destroy')->name('users.destroy');
 
-Route::get('/posts', 'PostController@index');
+Route::get('posts', 'PostController@index');
