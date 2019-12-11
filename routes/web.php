@@ -15,8 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/basic_users', 'BasicUserController@index');
+
 Route::get('/posts', 'PostController@index');
-// Route::get('/posts', function() {
-//     $posts = Post::all();
-//     return view('posts.index', ['posts' => $posts]);
-// });
