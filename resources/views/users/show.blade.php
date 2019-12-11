@@ -17,5 +17,5 @@
         <button type="submit">Delete User</button>
     </form>
 
-    <p><a href="{{ route('animals.index') }}">Back</a></p>
+    <p><a href="{{ route('users.index') }}">Back</a></p>
 @endsection

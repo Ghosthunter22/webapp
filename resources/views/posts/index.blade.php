@@ -3,10 +3,11 @@
 @section('title', 'Posts')
 
 @section('content')
-    <p>Posts:</p>
-    <ul>
-        @foreach ($posts as $post)
-            <li>{{ $post->post }}</li>
-        @endforeach
-    </ul>
+<p>Posts on Postr:</p>
+<ul>
+    @foreach($posts as $post)
+    <li><a href="{{ route('posts.show', ['id' => $post->id]) }}">{{ $post->id }}</a></li>
+    @endforeach
+</ul>
+<a href="{{ route('posts.create') }}">Create Post</a>
 @endsection

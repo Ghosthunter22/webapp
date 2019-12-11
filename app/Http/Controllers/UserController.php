@@ -59,8 +59,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($user)
     {
+        $user = User::findOrFail($id);
         return view('users.show', ['user' => $user]);
     }
 
@@ -93,8 +94,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
+        $user = User::findOrFail($id);
         $user->delete();
 
         return redirect()->route('users.index')->with('message', 'Animal was deleted');

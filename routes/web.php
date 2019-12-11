@@ -17,12 +17,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('users', 'UserController@index')->name('users.index');
-Route::get('users/create', 'UserController@create')->name('users.create');
-Route::post('users','UserController@store')->name('users.store');
-Route::get('users/{user}', 'UserController@show')->name('users.show');
-Route::get('users/{user}', 'UserController@destroy')->name('users.destroy');
+Route::get('posts', 'PostController@index')->name('posts.index');
+Route::get('posts/create', 'PostController@create')->name('posts.create');
+Route::post('posts', 'PostController@store')->name('posts.store');
+Route::get('posts/{post}', 'PostController@show')->name('posts.show');
+Route::delete('posts/{post}', 'PostController@destroy')->name('posts.destroy');
 
-Route::get('posts', 'PostController@index');
+Route::get('comments', 'CommentController@index')->name('comments.index');
+Route::get('comments/create', 'CommentController@create')->name('comments.create');
+Route::post('comments', 'CommentController@store')->name('comments.store');
+Route::get('comments/{comment}', 'CommentController@show')->name('comments.show');
+Route::delete('comments/{comment}', 'CommentController@destroy')->name('comments.destroy');
