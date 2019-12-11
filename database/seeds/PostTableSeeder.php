@@ -17,7 +17,7 @@ class PostTableSeeder extends Seeder
         $p = new Post;
         $p->post ="Generic Post";
         $p->posted_at = "2019-11-11 11:42:29";
-        $p->basic_user_id = 51;
+        $p->user_id = 51;
         $p->created_at= "2019-11-11 11:42:29";
         $p->updated_at= "2019-11-11 11:42:29";
         $p->save();

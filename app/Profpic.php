@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profpic extends Model
 {
-    public function basicUser()
+    public function user()
     {
-        return $this->belongsTo('App\BasicUser');
+        return $this->belongsTo('App\User');
     }
 }

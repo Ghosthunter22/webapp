@@ -17,7 +17,7 @@ class CommentTableSeeder extends Seeder
         $c = new Comment;
         $c->comment ="Generic Comment";
         $c->commented_at = "2019-11-11 11:42:29";
-        $c->basic_user_id = 51;
+        $c->user_id = 51;
         $c->post_id = 51;
         $c->created_at= "2019-11-11 11:42:29";
         $c->updated_at= "2019-11-11 11:42:29";

@@ -16,11 +16,11 @@ class CreateProfpicsTable extends Migration
         Schema::create('profpics', function (Blueprint $table) {
             $table->increments('id');
             $table->string('image')->default('default.jpg');
-            $table->unsignedInteger('basic_user_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('basic_user_id')->references('id')->
-            on('basic_users')->onDelete('cascade')->
+            $table->foreign('user_id')->references('id')->
+            on('users')->onDelete('cascade')->
             onUpdate('cascade');
         });
     }

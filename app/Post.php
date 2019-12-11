@@ -13,8 +13,8 @@ class Post extends Model
     }
     
     //Many Posts per User Relationship
-    public function basicUser()
+    public function user()
     {
-        return $this->belongsTo('App\BasicUser');
+        return $this->belongsTo('App\User');
     }
 }

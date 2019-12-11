@@ -17,12 +17,12 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->text('post');
             $table->dateTime('posted_at');	
-            $table->unsignedInteger('basic_user_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
 
             //User ID Foreign Key
-            $table->foreign('basic_user_id')->references('id')->
-            on('basic_users')->onDelete('cascade')->
+            $table->foreign('user_id')->references('id')->
+            on('users')->onDelete('cascade')->
             onUpdate('cascade');
         });
     }
