@@ -22,11 +22,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('posts', 'PostController@index')->name('posts.index');
 Route::get('posts/create', 'PostController@create')->name('posts.create');
 Route::post('posts', 'PostController@store')->name('posts.store');
-Route::get('posts/{post}', 'PostController@show')->name('posts.show');
-Route::delete('posts/{post}', 'PostController@destroy')->name('posts.destroy');
+Route::get('posts/{id}', 'PostController@show')->name('posts.show');
+Route::delete('posts/{id}', 'PostController@destroy')->name('posts.destroy');
 
 Route::get('comments', 'CommentController@index')->name('comments.index');
 Route::get('comments/create', 'CommentController@create')->name('comments.create');
 Route::post('comments', 'CommentController@store')->name('comments.store');
-Route::get('comments/{comment}', 'CommentController@show')->name('comments.show');
-Route::delete('comments/{comment}', 'CommentController@destroy')->name('comments.destroy');
+Route::get('comments/{id}', 'CommentController@show')->name('comments.show');
+Route::delete('comments/{id}', 'CommentController@destroy')->name('comments.destroy');

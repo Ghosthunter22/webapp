@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\Comment;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return view('posts.index', ['posts' => $posts]);
+        $comments = Comment::all();
+        return view('comments.index', ['comments' => $comments]);
     }
 
     /**
@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('comments.create');
     }
 
     /**
@@ -37,15 +37,15 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'post' => 'required|max:255'
+            'comment' => 'required|max:255'
         ]);
 
-        $p = new Post;
-        $p->post = $validatedData['post'];
-        $p->save();
+        $c = new Comment;
+        $c->comment = $validatedData['comment'];
+        $c->save();
 
-        session()->flash('message', 'Post was created.');
-        return redirect()->route('posts.index');
+        session()->flash('message', 'Comment was created.');
+        return redirect()->route('comments.index');
     }
 
     /**
@@ -56,8 +56,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
-        return view('posts.show', ['post' => $post]);
+        $comment = Comment::findOrFail($id);
+        return view('comments.show', ['comment' => $comment]);
     }
 
     /**
@@ -91,9 +91,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
-        $post->delete();
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
 
-        return redirect()->route('posts.index')->with('message', 'Post was deleted.');
+        return redirect()->route('comments.index')->with('message', 'Comment was deleted.');
     }
 }
