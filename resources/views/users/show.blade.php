@@ -1,20 +1,31 @@
 @extends('layouts.app')
 
-@section('title', 'User Details')
-
 @section('content')
-    <p>Users:</p>
-    <ul>
-        <li>Username: {{ $user->name }}</li>
-        <li>Email: {{ $user->email }}</li>
-    </ul>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Dashboard</div>
 
-    <form method="POST"
-        action="{{ route('users.destroy', ['id' => $user->id]) }}">
-        @csrf
-        @method('DELETE')
-        <button type="submit">Delete User</button>
-    </form>
-
-    <p><a href="{{ route('users.index') }}">Back</a></p>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="card-body">{{ $user->name }} 's Posts:</div>
+                <ul class="card-body">
+                    @if(!empty($posts))
+                        @foreach($posts as $post)
+                            <li><a href="{{ route('posts.show', ['id' => $post->id]) }}">{{ $post->title }}</a></li>
+                        @endforeach
+                    @else
+                        <a>No posts!</a>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

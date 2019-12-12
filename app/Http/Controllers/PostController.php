@@ -44,10 +44,11 @@ class PostController extends Controller
         $p = new Post;
         $p->title = $validatedData['title'];
         $p->post = $validatedData['post'];
+        $p->user_id=auth()->id();
         $p->save();
 
         session()->flash('message', 'Post was created.');
-        return redirect()->route('posts.index');
+        return redirect()->route('profile');
     }
 
     /**
@@ -59,7 +60,8 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.show', ['post' => $post]);
+        $comments = $post->comments()->get();
+        return view('posts.show', ['post' => $post, 'comments' => $comments]);
     }
 
     /**
@@ -96,6 +98,6 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect()->route('posts.index')->with('message', 'Post was deleted.');
+        return redirect()->route('profile')->with('message', 'Post was deleted.');
     }
 }

@@ -3,9 +3,18 @@
 @section('title', 'Post')
 
 @section('content')
-<ul>
-    <li>Post: {{ $post->post }}</li>
-</ul>
+<div>Post: 
+    <p>{{ $post->post }}</p>    
+    </div>
+<ul class="card-body">
+        @if(!empty($comments))
+            @foreach($comments as $comment)
+                <li><a href="{{ route('comments.show', ['id' => $comment->id]) }}">{{ $comment->comment }}</a></li>
+            @endforeach
+        @else
+            <a>No comments!</a>
+        @endif
+    </ul>
 
 <form method="POST"
     action="{{ route('posts.destroy', ['id' => $post->id]) }}">

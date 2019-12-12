@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 $factory->define(User::class, function (Faker $faker) {
     return [
         // 'username' => $faker->userName(),
-        'name' => $faker->name(),
+        'name' => $faker->userName(),
         'email' => $faker->unique()->email(),
         'email_verified_at' => now(),
         'password' => $faker->password(),

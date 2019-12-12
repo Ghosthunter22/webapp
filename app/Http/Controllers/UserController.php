@@ -57,10 +57,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($user)
+    public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', ['user' => $user]);
+        $posts = $user->posts()->get();
+        return view('users.show', ['user' => $user, 'posts' => $posts]);
     }
 
     /**
