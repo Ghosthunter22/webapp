@@ -37,10 +37,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'title'=> 'required|max:50',
             'post' => 'required|max:255'
         ]);
 
         $p = new Post;
+        $p->title = $validatedData['title'];
         $p->post = $validatedData['post'];
         $p->save();
 

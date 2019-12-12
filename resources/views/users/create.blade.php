@@ -5,9 +5,7 @@
 @section('content')
     <form method="POST" action="{{ route('users.store') }}">
         @csrf
-        <p>Username: <input type="text" name ="username"
-        value="{{ old('username') }}"></p>
-        <p>Name: <input type="text" name ="name"
+        <p>Username: <input type="text" name ="name"
             value="{{ old('name') }}"></p>
         <p>Email: <input type="text" name ="email"
             value="{{ old('email') }}"></p>

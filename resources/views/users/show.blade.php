@@ -5,8 +5,7 @@
 @section('content')
     <p>Users:</p>
     <ul>
-        <li>Username: {{ $user->username }}</li>
-        <li>Name: {{ $user->name }}</li>
+        <li>Username: {{ $user->name }}</li>
         <li>Email: {{ $user->email }}</li>
     </ul>
 

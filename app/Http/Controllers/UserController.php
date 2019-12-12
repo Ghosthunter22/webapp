@@ -37,13 +37,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'username' => 'required|unique:users|max:255',
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:225',
             'password' => 'required|max:255',
         ]);
         $u = new User;
-        $u->username = $validatedData['username'];
         $u->name = $validatedData['name'];
         $u->email = $validatedData['email'];
         $u->password = $validatedData['password'];
@@ -99,6 +97,6 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('users.index')->with('message', 'Animal was deleted');
+        return redirect()->route('users.index')->with('message', 'User was deleted');
     }
 }
