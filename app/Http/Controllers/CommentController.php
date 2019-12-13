@@ -23,9 +23,9 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($post_id)
     {
-        return view('comments.create');
+        return view('comments.create', ['post_id' => $post_id]);
     }
 
     /**
@@ -39,13 +39,15 @@ class CommentController extends Controller
         $validatedData = $request->validate([
             'comment' => 'required|max:255'
         ]);
-
+        $post_id = $request->input('post_id');
         $c = new Comment;
         $c->comment = $validatedData['comment'];
+        $c->user_id = auth()->id();
+        $c->post_id = $post_id;
         $c->save();
 
         session()->flash('message', 'Comment was created.');
-        return redirect()->route('comments.index');
+        return redirect()->route('posts.show', ['post_id' => $post_id]);
     }
 
     /**
@@ -89,11 +91,11 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($post_id, $comment_id)
     {
-        $comment = Comment::findOrFail($id);
+        $comment = Comment::findOrFail($comment_id);
         $comment->delete();
 
-        return redirect()->route('comments.index')->with('message', 'Comment was deleted.');
+        return redirect()->route('posts.show', ['post_id' => $post_id])->with('message', 'Comment was deleted.');
     }
 }

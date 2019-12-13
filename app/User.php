@@ -22,9 +22,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Comment');
     }
 
-    public function profpic()
+    public function phone()
     {
-        return $this->hasOne('App\Profpic');
+        return $this->hasOne('App\Phone');
     }
 
     /**

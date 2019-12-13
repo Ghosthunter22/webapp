@@ -60,8 +60,9 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
+        $user = $post->user()->get()->first();
         $comments = $post->comments()->get();
-        return view('posts.show', ['post' => $post, 'comments' => $comments]);
+        return view('posts.show', ['post' => $post, 'comments' => $comments, 'user' => $user]);
     }
 
     /**

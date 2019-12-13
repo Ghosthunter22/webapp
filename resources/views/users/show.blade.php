@@ -14,15 +14,28 @@
                         </div>
                     @endif
                 </div>
+                <div class="row justify-content-center">
+
+                        <div class="profile-header-container">
+                            <div class="profile-header-img">
+                                <img class="rounded-circle" src="/storage/avatars/{{ $user->avatar }}" />
+                                <!-- badge -->
+                                <div class="rank-label-container">
+                                    <span class="label label-default rank-label">{{$user->name}}</span>
+                                </div>
+                            </div>
+                        </div>
+            
+                    </div>
                 <div class="card-body">{{ $user->name }} 's Posts:</div>
                 <ul class="card-body">
-                    @if(!empty($posts))
+                    {{-- @if(!empty($posts)) --}}
                         @foreach($posts as $post)
-                            <li><a href="{{ route('posts.show', ['id' => $post->id]) }}">{{ $post->title }}</a></li>
+                            <li><a href="{{ route('posts.show', ['post_id' => $post->id]) }}">{{ $post->title }}</a></li>
                         @endforeach
-                    @else
+                    {{-- @else
                         <a>No posts!</a>
-                    @endif
+                    @endif --}}
                 </ul>
             </div>
         </div>

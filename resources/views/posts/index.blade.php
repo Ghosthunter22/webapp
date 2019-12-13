@@ -3,11 +3,17 @@
 @section('title', 'Posts')
 
 @section('content')
-<p>Posts on Postr:</p>
+<p class="card-header">Posts on Postr:</p>
 <ul>
     @foreach($posts as $post)
-    <li><a href="{{ route('posts.show', ['id' => $post->id]) }}">{{ $post->title }}</a></li>
+    <div class="card-header">
+        <p class="card-header">
+                <img class="rounded-circle" src="/storage/avatars/{{ $post->user()->get()->first()->avatar }}" width="40" height="40"/><a href="{{ route('users.show', ['id' => $post->user_id]) }}">{{ $post->user()->get()->first()->name }}</a>
+        </p>
+    <div><a href="{{ route('posts.show', ['post_id' => $post->id]) }}">{{ $post->title }}</a></div>
+    <p class="card-body">{{ $post->post }}</p>
+    </div>
     @endforeach
-</ul>
+</ul>   
 <a href="{{ route('posts.create') }}">Create Post</a>
 @endsection

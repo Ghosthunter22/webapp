@@ -88,7 +88,7 @@
                     {{-- <a href="{{ route('users.index') }}">Users</a> --}}
                     <a href="{{ route('users.index') }}">Users</a>
                     <a href="{{ route('posts.index') }}">Posts</a>
-                    <a href="{{ route('comments.index') }}">Comments</a>
+                    {{-- <a href="{{ route('comments.index') }}">Comments</a> --}}
                     {{-- <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
