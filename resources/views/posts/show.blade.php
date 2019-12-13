@@ -4,7 +4,7 @@
 
 @section('content')
 <div>
-<div class="card-header"><img class="rounded-circle" src="/storage/avatars/{{ $user->avatar }}" width="40" height="40"/><a href="{{ route('users.show', ['id' => $user->id]) }}">{{ $user->name }}</a></div>
+<div class="card-header"><a href="{{ route('users.show', ['id' => $user->id]) }}"><img class="rounded-circle" src="/storage/avatars/{{ $user->avatar }}" width="40" height="40"/>{{ $user->name }}</a></div>
     <div class="card-header"></a>{{ $post->title }}</div> 
     <p class="card-body">{{ $post->post }}</p>    
     </div>
@@ -12,8 +12,7 @@
         @if(!empty($comments))  
             @foreach($comments as $comment)
                 <p class="card-header"><a href="{{ route('users.show', ['id' => $comment->user_id]) }}">
-                        <img class="rounded-circle" src="/storage/avatars/
-                        {{ $comment->user()->get()->first()->avatar }}" width="20" height="20"/>
+                        <img class="rounded-circle" src="/storage/avatars/{{ $comment->user()->get()->first()->avatar }}" width="20" height="20"/>
                         {{ $comment->user()->get()->first()->name }}</a></p>
                 <p>{{ $comment->comment }}</p>
                 @if($comment->user_id == auth()->id())

@@ -99,6 +99,6 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect()->route('profile')->with('message', 'Post was deleted.');
+        return redirect()->route('posts.index')->with('message', 'Post was deleted.');
     }
 }

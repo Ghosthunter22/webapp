@@ -68,7 +68,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ route('profile') }}">Profile</a>
+                        <a href="{{ route('profile') }}"><img class="rounded-circle" src="/storage/avatars/{{ auth()->user()->avatar }}" width="25" height="25"/>Profile</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
