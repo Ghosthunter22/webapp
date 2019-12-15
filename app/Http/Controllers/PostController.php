@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(7);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -38,13 +38,20 @@ class PostController extends Controller
     {
         $validatedData = $request->validate([
             'title'=> 'required|max:50',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'post' => 'required|max:255'
         ]);
 
         $p = new Post;
-        $p->title = $validatedData['title'];
+        $p->title = $validatedData['title']; 
         $p->post = $validatedData['post'];
         $p->user_id=auth()->id();
+        if (!empty($validatedData['image'])){
+        $p->image = $validatedData['image'];
+        $imageName = $p->user_id.'.'.$p->title.'_image'.time().'.'.request()->image->getClientOriginalExtension();
+        $p->image->storeAs('images',$imageName);
+        $p->image = $imageName;
+        }
         $p->save();
 
         session()->flash('message', 'Post was created.');

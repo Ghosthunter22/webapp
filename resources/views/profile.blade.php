@@ -28,12 +28,38 @@
                     
                 <h5 class="card-header">My Posts:</h5>
                 <ul class="card-body">
-                    @if(!empty($posts))
+                    @if(!(($posts->first()) == null))
                     <div>
                         @foreach($posts as $post)
                         <div class="card" style="margin-block-end: 20px">
-                            <h6 class="card-header"><a href="{{ route('posts.show', ['post_id' => $post->id]) }}">{{ $post->title }}</a></h6>
-                        <div class="card-body">{{ $post->post }}</div>
+                            <h5 class="card-header"><a href="{{ route('posts.show', ['post_id' => $post->id]) }}">{{ $post->title }}</a></h5>
+                            @if(!(($post->image) == null))
+                            <div class="modal-header">
+                                @if(strpos(($post->image), 'image')!==false)
+                                <img src="/storage/images/{{ $post->image }}"/>
+                                @else
+                                <img src="{{$post->image}}" />
+                                @endif
+                            </div>
+                            @endif
+                            <div class="card-body">{{ $post->post }}</div>    
+                            @if($post->user_id == auth()->id())
+                            <div class="card-footer">
+                                <div style="width:400px">  
+                                    <div style="float: left; width: 0px">
+                                        <button class="btn btn-secondary">Edit</button>
+                                    </div>
+                                    <div style="float: right; width: 340px">
+                                        <form method="POST"
+                                        action="{{ route('posts.destroy', ['post_id' => $post->id]) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @endif
+                            </div>
                         </div>
                         @endforeach
                     </div>
@@ -44,6 +70,32 @@
                 <div class="row justify-content-center">
                     <a href="{{ route('posts.create') }}"><button type="submit" class="btn btn-primary" style="margin-bottom:20px">Create Post</button></a>
                 </div>
+
+                <h5 class="card-header" style="margin-bottom:20px">Groups:</h5>
+                @if(!($groups->first() == null))
+                <div class="row justify-content-center">
+                    <div class="card-body" style="margin-left:20px">
+                        @foreach ($groups as $group)
+                        <div class="card" style="margin-top: 10px; width:250px">
+                            <a href="{{ route('groups.show', ['group_id' => $group->id]) }}" class="card-header">{{ $group->title }}</a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @else
+                <h5 class="row justify-content-center">User is not in any group.</h5>
+                @endif
+
+                @if(!($user->phone == null))
+                <h5 class="card-header" style="margin-bottom:20px">Information</h5>
+                <div class="row justify-content-center">
+                    <div class="card-body" style="margin-left:20px">
+                        <b>Phone: </b>
+                        {{ $user->phone->phone}}
+                    </div>
+                </div>
+                @endif
+
                 <h5 class="card-header" style="margin-bottom:20px">Change avatar:</h5>
                 <div class="row justify-content-center">
                         <form action="/profile" method="post" enctype="multipart/form-data">

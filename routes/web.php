@@ -27,15 +27,19 @@ Route::get('users/{id}', 'UserController@show')->name('users.show');
 
 Route::get('groups', 'GroupController@index')->name('groups.index');
 Route::get('groups/{group_id}', 'GroupController@show')->name('groups.show');
+Route::get('groups/{group_id}/join/{user_id}', 'GroupController@userJoin')->name('groups.join');
+Route::get('groups/{group_id}/leave/{user_id}', 'GroupController@userLeave')->name('groups.leave');
 
 Route::get('posts', 'PostController@index')->name('posts.index');
 Route::get('posts/create', 'PostController@create')->name('posts.create');
 Route::post('posts', 'PostController@store')->name('posts.store');
 Route::get('posts/{post_id}', 'PostController@show')->name('posts.show');
+Route::post('posts/{post_id}', 'PostController@edit')->name('posts.edit');
 Route::delete('posts/{post_id}', 'PostController@destroy')->name('posts.destroy');
 
 Route::get('comments/{post_id}', 'CommentController@index')->name('comments.index');
 Route::get('comments/{post_id}/create', 'CommentController@create')->name('comments.create');
 Route::post('comments', 'CommentController@store')->name('comments.store');
 Route::get('comments/{id}', 'CommentController@show')->name('comments.show');
+Route::get('comments/{post_id}/edit/{id}', 'CommentController@edit')->name('comments.edit');
 Route::delete('posts/{post_id}/comments/{comment_id}', 'CommentController@destroy')->name('comments.destroy');

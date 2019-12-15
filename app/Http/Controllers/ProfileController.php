@@ -27,7 +27,9 @@ class ProfileController extends Controller
         $id=auth()->id();
         $user = User::findOrFail($id);
         $posts = $user->posts()->get();
-        return view('profile', ['user' => $user, 'posts' => $posts]);
+        $groups = $user->groups()->get();
+        $phone = $user->phone()->get();
+        return view('profile', ['user' => $user, 'posts' => $posts, 'groups' => $groups, 'phone' => $phone]);
     }
 
     public function update_avatar(Request $request){

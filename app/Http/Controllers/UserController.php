@@ -61,7 +61,9 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->get();
-        return view('users.show', ['user' => $user, 'posts' => $posts]);
+        $groups = $user->groups()->get();
+        $phone = $user->phone()->get();
+        return view('users.show', ['user' => $user, 'posts' => $posts, 'groups' => $groups, 'phone' => $phone]);
     }
 
     /**

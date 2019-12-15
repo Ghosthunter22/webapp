@@ -16,6 +16,7 @@ class PostTableSeeder extends Seeder
 
         $p = new Post;
         $p->title = "My Post";
+        $p->image = null;
         $p->post ="Generic Post";
         $p->user_id = 51;
         $p->created_at= "2019-11-11 11:42:29";

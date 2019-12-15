@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Group;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,7 @@ class GroupController extends Controller
     public function show($id)
     {
         $group = Group::findOrFail($id);
-        $users = $group->users()->get();
+        $users = $group->users()->paginate(5);
         return view('groups.show', ['group' => $group, 'users' => $users]);
     }
 
@@ -84,5 +85,27 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function userJoin($group_id, $user_id)
+    {
+        $group = Group::findOrFail($group_id);
+        $user = User::findOrFail($user_id);
+
+        $group->users()->attach($user);
+
+        session()->flash('message', 'Joined Group.');
+        return redirect()->route('groups.show', ['group_id' => $group_id]);
+    }
+
+    public function userLeave($group_id, $user_id)
+    {
+        $group = Group::findOrFail($group_id);
+        $user = User::findOrFail($user_id);
+
+        $group->users()->detach($user);
+
+        session()->flash('message', 'Left Group.');
+        return redirect()->route('groups.show', ['group_id' => $group_id]);
     }
 }
