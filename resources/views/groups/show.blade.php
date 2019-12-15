@@ -29,9 +29,9 @@
                 <h5 class="card-header">Members:</h5>
                 <ul class="card-body">
                     @if(!empty($users))
-                    <div class="card-deck" style="width:700px">
+                    <div>
                         @foreach($users as $user)
-                        <div class="card" style="margin-bottom:10px; width:150px; height:40px">
+                        <div class="card" style="margin-bottom:10px; width:200px; height:40px">
                             <a href="{{ route('users.show', ['id' => $user->id]) }}"><img class="rounded-circle" src="/storage/avatars/{{ $user->avatar }}" width="35" height="35"/>{{ $user->name }}</a>
                         </div>
                         @endforeach
