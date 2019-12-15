@@ -9,11 +9,15 @@
         Edit Phone Number
     </div>
     <div class="card-body">
+        @php
+        use App\User;
+            $user = User::findOrFail(auth()->id());
+        @endphp
 
-<form method="POST" action="{{ route('phones.update') }} ">
+<form method="POST" action="{{ route('phones.update', ['phone_id' => $phone->id] )}} ">
     @csrf
-    <p>Comment: <input type="text" name="phone"
-        value="{{ $user->phone }}" class="form-control"></p>
+    <p>Phone Number: <input type="text" name="phone"
+        value="{{ $user->phone->phone }}" class="form-control"></p>
     <input type="submit" value="Edit Phone Number" class="btn btn-primary">
     <a href="{{ route('profile') }}">Cancel</a>
 </form>

@@ -24,7 +24,7 @@ Route::post('profile', 'ProfileController@update_avatar')->name('profile.update_
 
 Route::get('phones/create', 'PhoneController@create')->name('phones.create');
 Route::post('phones', 'PhoneController@store')->name('phones.store');
-Route::get('phones/edit', 'PhoneController@edit')->name('phones.edit');
+Route::get('phones/edit/{phone_id}', 'PhoneController@edit')->name('phones.edit');
 Route::post('phones/{phone_id}', 'PhoneController@update')->name('phones.update');
 Route::delete('phones/{phone_id}', 'PhoneController@destroy')->name('phones.destroy');
 
@@ -41,7 +41,7 @@ Route::get('posts/create', 'PostController@create')->name('posts.create');
 Route::post('posts', 'PostController@store')->name('posts.store');
 Route::get('posts/{post_id}', 'PostController@show')->name('posts.show');
 Route::get('posts/edit/{post_id}', 'PostController@edit')->name('posts.edit');
-Route::post('posts', 'PostController@update')->name('posts.update');
+Route::post('posts/{post_id}', 'PostController@update')->name('posts.update');
 Route::delete('posts/{post_id}', 'PostController@destroy')->name('posts.destroy');
 
 // Route::get('comments/{post_id}', 'CommentController@index')->name('comments.index');

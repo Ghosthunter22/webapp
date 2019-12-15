@@ -80,9 +80,20 @@ class PhoneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'phone' => 'required|numeric'
+        ]);
+        $user = User::findOrFail(auth()->id());
+        $phone = $user->phone;
+        $new_phone = $validatedData['phone'];
+        $phone->phone = $new_phone;
+        $user->phone()->save($phone);
+        $user->save();
+
+        session()->flash('message', 'Phone number was updated.');
+        return redirect()->route('profile');
     }
 
     /**
@@ -93,6 +104,13 @@ class PhoneController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $phone = Phone::findOrFail($id);
+        $phone->phone=null;
+        $user = User::findOrFail(auth()->id());
+        // $user->phone()->save($phone);
+        $user->phone()->delete();
+        $user->save();
+
+        return redirect()->route('profile')->with('message', 'Phone number was deleted.');
     }
 }

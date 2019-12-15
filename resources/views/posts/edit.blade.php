@@ -8,7 +8,7 @@
         Edit Post
     </div>
     <div class="card-body">
-<form method="POST" action="{{ route('posts.update') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('posts.update', ['post_id' => $post->id]) }}" enctype="multipart/form-data">
     @csrf
     <p>Title: <input type="textarea" name="title"
         value="{{ $post->title }}" class="form-control"></p>
