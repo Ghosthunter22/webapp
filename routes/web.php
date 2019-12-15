@@ -25,6 +25,9 @@ Route::post('profile', 'ProfileController@update_avatar')->name('profile.update_
 Route::get('users', 'UserController@index')->name('users.index');
 Route::get('users/{id}', 'UserController@show')->name('users.show');
 
+Route::get('groups', 'GroupController@index')->name('groups.index');
+Route::get('groups/{group_id}', 'GroupController@show')->name('groups.show');
+
 Route::get('posts', 'PostController@index')->name('posts.index');
 Route::get('posts/create', 'PostController@create')->name('posts.create');
 Route::post('posts', 'PostController@store')->name('posts.store');

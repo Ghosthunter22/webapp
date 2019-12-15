@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+            <b><h4 class="card-header">{{ $user->name }}</b>'s Profile</h4>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -18,24 +18,24 @@
 
                         <div class="profile-header-container">
                             <div class="profile-header-img">
-                                <img class="rounded-circle" src="/storage/avatars/{{ $user->avatar }}" />
-                                <!-- badge -->
-                                <div class="rank-label-container">
-                                    <span class="label label-default rank-label">{{$user->name}}</span>
-                                </div>
+                                <img class="rounded-circle" src="/storage/avatars/{{ $user->avatar }}" width="100" height="100"/>
+                                <h5 class="row justify-content-center" style="margin-top:10px">{{$user->name}}</h5>
                             </div>
                         </div>
             
                     </div>
-                <div class="card-body">{{ $user->name }} 's Posts:</div>
+                    <b><h5 class="card-header">{{ $user->name }}</b>'s Posts:</h5>
                 <ul class="card-body">
-                    {{-- @if(!empty($posts)) --}}
+                    @if(!empty($posts))
                         @foreach($posts as $post)
-                            <li><a href="{{ route('posts.show', ['post_id' => $post->id]) }}">{{ $post->title }}</a></li>
+                        <div class="card" style="margin-block-end: 20px">
+                            <h6 class="card-header"><a href="{{ route('posts.show', ['post_id' => $post->id]) }}">{{ $post->title }}</a></h6>
+                        <div class="card-body">{{ $post->post }}</div>
+                        </div>
                         @endforeach
-                    {{-- @else
-                        <a>No posts!</a>
-                    @endif --}}
+                    @else
+                    <h5 class="row justify-content-center">No posts!</h5>
+                    @endif
                 </ul>
             </div>
         </div>

@@ -27,6 +27,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Phone');
     }
 
+    public function groups()
+    {
+        return $this->belongsToMany('App\Group');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

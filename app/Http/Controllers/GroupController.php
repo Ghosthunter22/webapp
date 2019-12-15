@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Group;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(12);
-        return view('users.index', ['users' => $users]);
+        $groups = Group::paginate(12);
+        return view('groups.index', ['groups' => $groups]);
     }
 
     /**
@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        //
     }
 
     /**
@@ -36,19 +36,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|unique:users|max:225',
-            'password' => 'required|max:255',
-        ]);
-        $u = new User;
-        $u->name = $validatedData['name'];
-        $u->email = $validatedData['email'];
-        $u->password = $validatedData['password'];
-        $u->save();
-
-        session()->flash('message', 'User was created.');
-        return redirect()->route('users.index');
+        //
     }
 
     /**
@@ -59,9 +47,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        $posts = $user->posts()->get();
-        return view('users.show', ['user' => $user, 'posts' => $posts]);
+        $group = Group::findOrFail($id);
+        $users = $group->users()->get();
+        return view('groups.show', ['group' => $group, 'users' => $users]);
     }
 
     /**
@@ -95,9 +83,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect()->route('users.index')->with('message', 'User was deleted');
+        //
     }
 }
