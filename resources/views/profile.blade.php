@@ -91,16 +91,16 @@
                 @endif
 
                 <h5 class="card-header" style="margin-bottom:20px">Information</h5>
-                <div class="row justify-content-center">
                     <div class="card-body" style="margin-left:20px">
                         @if(!($user->phone ==null))
                         @if(!($user->phone->phone == null))
                         <b>Phone: </b>
                         {{ $user->phone->phone}}
+                    </div>
                         <div class="card-footer">
                             <div style="width:400px">  
                                 <div style="float: left; width: 0px">
-                                    <a href="{{ route('phones.edit', ['phone_id' => $user->phone->id]) }}"><button class="btn btn-secondary">Edit</button>
+                                    <a href="{{ route('phones.edit', ['phone_id' => $user->phone->id]) }}"><button class="btn btn-secondary">Edit</button></a>
                                 </div>
                                 <div style="float: right; width: 340px">
                                     <form method="POST"
@@ -118,8 +118,7 @@
                         <a href="{{ route('phones.create') }}"><button type="submit" class="btn btn-primary" style="margin-bottom:20px">Add Phone Number</button></a>
                         </div>
                         @endif
-                    </div>
-                </div>
+                    
 
                 <h5 class="card-header" style="margin-bottom:20px">Change avatar:</h5>
                 <div class="row justify-content-center">
@@ -133,6 +132,7 @@
                         </form>
                     </div>
             </div>
+        </div>
         </div>
     </div>
 </div>

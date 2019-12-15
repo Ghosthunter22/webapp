@@ -49,14 +49,21 @@
                     @endif
                 </ul>
 
-                @if(!($user->phone == null))
+            
                 <h5 class="card-header" style="margin-bottom:20px">Information</h5>
+                @if(!($user->phone == null))
+                @if(!($user->phone->phone == null))
                 <div class="row justify-content-center">
                     <div class="card-body" style="margin-left:20px">
                         <b>Phone: </b>
                         {{ $user->phone->phone}}
                     </div>
                 </div>
+                @endif
+                @else
+                    <div class="row justify-content-center" style="margin-bottom:20px">
+                    No Phone number provided.
+                    </div>
                 @endif
 
                 <h5 class="card-header" style="margin-bottom:20px">Groups:</h5>
