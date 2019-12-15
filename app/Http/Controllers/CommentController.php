@@ -68,9 +68,11 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($post_id, $comment_id)
     {
-        //
+        $comment = Comment::findOrFail($comment_id);
+
+        return view('comments.edit', ['post_id' => $post_id, 'comment' => $comment]);
     }
 
     /**
@@ -80,9 +82,21 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'comment' => 'required|max:255'
+        ]);
+        $post_id = $request->input('post_id');
+        $comment_id = $request->input('comment_id');
+        $c = Comment::findOrFail($comment_id);
+        $c->comment = $validatedData['comment'];
+        $c->user_id = auth()->id();
+        $c->post_id = $post_id;
+        $c->save();
+
+        session()->flash('message', 'Comment was edited.');
+        return redirect()->route('posts.show', ['post_id' => $post_id]);
     }
 
     /**

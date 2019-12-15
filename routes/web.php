@@ -34,12 +34,14 @@ Route::get('posts', 'PostController@index')->name('posts.index');
 Route::get('posts/create', 'PostController@create')->name('posts.create');
 Route::post('posts', 'PostController@store')->name('posts.store');
 Route::get('posts/{post_id}', 'PostController@show')->name('posts.show');
-Route::post('posts/{post_id}', 'PostController@edit')->name('posts.edit');
+Route::get('posts/{post_id}/edit', 'PostController@edit')->name('posts.edit');
+Route::post('posts', 'PostController@update')->name('posts.update');
 Route::delete('posts/{post_id}', 'PostController@destroy')->name('posts.destroy');
 
-Route::get('comments/{post_id}', 'CommentController@index')->name('comments.index');
+// Route::get('comments/{post_id}', 'CommentController@index')->name('comments.index');
 Route::get('comments/{post_id}/create', 'CommentController@create')->name('comments.create');
 Route::post('comments', 'CommentController@store')->name('comments.store');
-Route::get('comments/{id}', 'CommentController@show')->name('comments.show');
-Route::get('comments/{post_id}/edit/{id}', 'CommentController@edit')->name('comments.edit');
+// Route::get('comments/{id}', 'CommentController@show')->name('comments.show');
+Route::get('comments/{post_id}/edit/{comment_id}', 'CommentController@edit')->name('comments.edit');
+Route::post('comments/{post_id}', 'CommentController@update')->name('comments.update');
 Route::delete('posts/{post_id}/comments/{comment_id}', 'CommentController@destroy')->name('comments.destroy');

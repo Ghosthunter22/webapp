@@ -23,7 +23,7 @@
     <div class="card-footer">
         <div style="width:400px">  
             <div style="float: left; width: 0px">
-                <button class="btn btn-secondary">Edit</button>
+                <a href="{{ route('posts.edit', ['post_id' => $post->id]) }}"><button class="btn btn-secondary">Edit</button>
             </div>
             <div style="float: right; width: 340px">
                 <form method="POST"
@@ -59,7 +59,7 @@
                 <div class="card-footer">
                 <div style="width:400px">  
                     <div style="float: left; width: 0px">
-                <button class="btn btn-secondary">Edit</button>
+                <a href="{{ route('comments.edit', ['post_id' => $post->id, 'comment_id' => $comment->id]) }}"><button class="btn btn-secondary">Edit</button>
                     </div>
                     <div style="float: right; width: 340px">
                 <form method="POST"

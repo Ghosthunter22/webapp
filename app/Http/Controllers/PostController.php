@@ -78,9 +78,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($post_id)
     {
-        //
+        $post = Post::findOrFail($post_id);
+
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -90,9 +92,29 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title'=> 'required|max:50',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'post' => 'required|max:255'
+        ]);
+
+        $post_id = $request->input('post_id');
+        $p = Post::findOrFail($post_id);
+        $p->title = $validatedData['title']; 
+        $p->post = $validatedData['post'];
+        $p->user_id=auth()->id();
+        if (!empty($validatedData['image'])){
+        $p->image = $validatedData['image'];
+        $imageName = $p->user_id.'.'.$p->title.'_image'.time().'.'.request()->image->getClientOriginalExtension();
+        $p->image->storeAs('images',$imageName);
+        $p->image = $imageName;
+        }
+        $p->save();
+
+        session()->flash('message', 'Post was edited.');
+        return redirect()->route('posts.show', ['post_id' => $post_id]);
     }
 
     /**
