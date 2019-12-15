@@ -47,7 +47,7 @@
                             <div class="card-footer">
                                 <div style="width:400px">  
                                     <div style="float: left; width: 0px">
-                                        <button class="btn btn-secondary">Edit</button>
+                                        <a href="{{ route('posts.edit', ['post_id' => $post->id]) }}"><button class="btn btn-secondary">Edit</button>
                                     </div>
                                     <div style="float: right; width: 340px">
                                         <form method="POST"
@@ -83,18 +83,41 @@
                     </div>
                 </div>
                 @else
-                <h5 class="row justify-content-center">User is not in any group.</h5>
+                
+                <h5 class="row justify-content-center">Not a member of a group.</h5>
+                <div class="row justify-content-center">
+                <a href="{{ route('groups.index') }}"><button type="submit" class="btn btn-primary" style="margin-bottom:20px">Browse Groups</button></a>
+                </div>
                 @endif
 
-                @if(!($user->phone == null))
                 <h5 class="card-header" style="margin-bottom:20px">Information</h5>
                 <div class="row justify-content-center">
                     <div class="card-body" style="margin-left:20px">
+                        @if(!($user->phone == null))
                         <b>Phone: </b>
                         {{ $user->phone->phone}}
+                        <div class="card-footer">
+                            <div style="width:400px">  
+                                <div style="float: left; width: 0px">
+                                    <button class="btn btn-secondary">Edit</button>
+                                </div>
+                                <div style="float: right; width: 340px">
+                                    <form method="POST"
+                                    action="{{ route('phones.destroy', ['phone_id' => $user->phone->id]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        <div class="row justify-content-center">
+                        <a href="{{ route('phones.create') }}"><button type="submit" class="btn btn-primary" style="margin-bottom:20px">Add Phone Number</button></a>
+                        </div>
+                        @endif
                     </div>
                 </div>
-                @endif
 
                 <h5 class="card-header" style="margin-bottom:20px">Change avatar:</h5>
                 <div class="row justify-content-center">

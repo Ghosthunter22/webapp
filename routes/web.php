@@ -22,6 +22,12 @@ Route::get('home', 'HomeController@index')->name('home');
 Route::get('profile', 'ProfileController@index')->name('profile');
 Route::post('profile', 'ProfileController@update_avatar')->name('profile.update_avatar');
 
+Route::get('phones/create', 'PhoneController@create')->name('phones.create');
+Route::post('phones', 'PhoneController@store')->name('phones.store');
+Route::get('phones/edit', 'PhoneController@edit')->name('phones.edit');
+Route::post('phones/{phone_id}', 'PhoneController@update')->name('phones.update');
+Route::delete('phones/{phone_id}', 'PhoneController@destroy')->name('phones.destroy');
+
 Route::get('users', 'UserController@index')->name('users.index');
 Route::get('users/{id}', 'UserController@show')->name('users.show');
 
@@ -34,7 +40,7 @@ Route::get('posts', 'PostController@index')->name('posts.index');
 Route::get('posts/create', 'PostController@create')->name('posts.create');
 Route::post('posts', 'PostController@store')->name('posts.store');
 Route::get('posts/{post_id}', 'PostController@show')->name('posts.show');
-Route::get('posts/{post_id}/edit', 'PostController@edit')->name('posts.edit');
+Route::get('posts/edit/{post_id}', 'PostController@edit')->name('posts.edit');
 Route::post('posts', 'PostController@update')->name('posts.update');
 Route::delete('posts/{post_id}', 'PostController@destroy')->name('posts.destroy');
 

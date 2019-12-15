@@ -26,6 +26,7 @@ class ProfileController extends Controller
     {
         $id=auth()->id();
         $user = User::findOrFail($id);
+        // dd($user->phone());
         $posts = $user->posts()->get();
         $groups = $user->groups()->get();
         $phone = $user->phone()->get();

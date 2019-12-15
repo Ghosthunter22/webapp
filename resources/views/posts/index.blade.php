@@ -27,9 +27,6 @@
             {{ $post->title }}
         </h5>
         @if(!(($post->image) == null))
-        {{-- <div class="badge">
-        <h6 class="badge-info" style="height:20px">[contains image]</h6>
-        </div> --}}
         <div class="modal-header">
             @if(strpos(($post->image), 'image')!==false)
             <img src="/storage/images/{{ $post->image }}"/>
