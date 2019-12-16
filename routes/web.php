@@ -17,6 +17,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/user', 'RoleController@userDemo')->name('user');
+    Route::get('/permission-denied', 'RoleController@permissionDenied')->name('nopermission');
+    Route::group(['middleware' => ['admin']], function(){
+        Route::get('/admin', 'RoleController@adminDemo')->name('admin');
+    });
+});
+
 Route::get('home', 'HomeController@index')->name('home');
 
 Route::get('profile', 'ProfileController@index')->name('profile');

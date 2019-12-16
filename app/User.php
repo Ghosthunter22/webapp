@@ -10,13 +10,11 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    //1 User - Many Posts Relationship
     public function posts()
     {
         return $this->hasMany('App\Post');
     }
     
-    //1 User - Many Comments Relationship
     public function comments()
     {
         return $this->hasMany('App\Comment');
@@ -30,6 +28,11 @@ class User extends Authenticatable
     public function groups()
     {
         return $this->belongsToMany('App\Group');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
     }
 
     /**
