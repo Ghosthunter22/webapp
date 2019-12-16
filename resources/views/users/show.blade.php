@@ -61,9 +61,9 @@
                 </div>
                 @endif
                 @else
-                    <div class="row justify-content-center" style="margin-bottom:20px">
+                    <h5 class="row justify-content-center" style="margin-bottom:20px">
                     No Phone number provided.
-                    </div>
+                    </h5>
                 @endif
 
                 <h5 class="card-header" style="margin-bottom:20px">Groups:</h5>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 @else
-                <h5 class="row justify-content-center">User is not in any group.</h5>
+                <b><h5 class="row justify-content-center">{{ $user->name }}</b>&nbsp;is not in any group.</h5>
                 @endif
 
             </div>

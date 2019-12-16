@@ -132,8 +132,15 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        $post->delete();
 
-        return redirect()->route('posts.index')->with('message', 'Post was deleted.');
+        $userRoles = User::findOrFail(auth()->id())->roles->pluck('name');
+
+        if(auth()->id() == $post->user->id || $userRoles->contains('admin')){
+            $post->delete();
+            return redirect()->route('posts.index')->with('message', 'Post was deleted.');
+        } else {
+            return redirect()->route('nopermission');
+        }
+
     }
 }

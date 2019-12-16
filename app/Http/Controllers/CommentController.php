@@ -113,8 +113,14 @@ class CommentController extends Controller
     public function destroy($post_id, $comment_id)
     {
         $comment = Comment::findOrFail($comment_id);
-        $comment->delete();
+        $userRoles = User::findOrFail(auth()->id())->roles->pluck('name');
 
-        return redirect()->route('posts.show', ['post_id' => $post_id])->with('message', 'Comment was deleted.');
+        if(auth()->id() == $comment->user->id || $userRoles->contains('admin')){
+            $comment->delete();
+            return redirect()->route('posts.show', ['post_id' => $post_id])->with('message', 'Comment was deleted.');
+        } else {
+            return redirect()->route('nopermission');
+        }
+        
     }
 }
