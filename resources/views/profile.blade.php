@@ -91,13 +91,20 @@
                 @endif
 
                 <h5 class="card-header" style="margin-bottom:20px">Information</h5>
-                    <div class="card-body" style="margin-left:20px">
                         @if(!($user->phone ==null))
                         @if(!($user->phone->phone == null))
-                        <b>Phone: </b>
-                        {{ $user->phone->phone}}
+                        <div class="card-deck" style="margin-left:20px">
+                        <b style="padding:10px">Phone: </b>
+                        <p style="padding:10px">{{ $user->phone->phone}}<p>
+                            <a href="{{ route('phones.edit', ['phone_id' => $user->phone->id]) }}" style="padding:10px"><button class="btn btn-secondary">Edit</button></a>
+                            <form method="POST"
+                            action="{{ route('phones.destroy', ['phone_id' => $user->phone->id]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger">Delete</button>
+                            </form>
                     </div>
-                        <div class="card-footer">
+                        {{-- <div class="card-footer">
                             <div style="width:400px">  
                                 <div style="float: left; width: 0px">
                                     <a href="{{ route('phones.edit', ['phone_id' => $user->phone->id]) }}"><button class="btn btn-secondary">Edit</button></a>
@@ -111,15 +118,17 @@
                                     </form>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         @endif
                         @else
+                        <div class="card-body">
                         <div class="row justify-content-center">
                         <a href="{{ route('phones.create') }}"><button type="submit" class="btn btn-primary" style="margin-bottom:20px">Add Phone Number</button></a>
                         </div>
+            </div>
                         @endif
                     
-
+                <div class="card">
                 <h5 class="card-header" style="margin-bottom:20px">Change avatar:</h5>
                 <div class="row justify-content-center">
                         <form action="/profile" method="post" enctype="multipart/form-data">
@@ -131,6 +140,7 @@
                             <button type="submit" class="btn btn-primary" style="margin-bottom:20px">Submit</button>
                         </form>
                     </div>
+                </div>
             </div>
         </div>
         </div>
