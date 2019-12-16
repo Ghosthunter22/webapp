@@ -19,5 +19,11 @@ class UserTableSeeder extends Seeder
         $u->email = "admin@postr.com";
         $u->password = Hash::make("123456789");
         $u->save();
+        
+        $tu = new User;
+        $tu->name = "Test User";
+        $tu->email = "test@postr.com";
+        $tu->password = Hash::make("123456789");
+        $tu->save();
     }
 }

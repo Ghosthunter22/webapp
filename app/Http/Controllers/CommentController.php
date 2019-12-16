@@ -71,8 +71,13 @@ class CommentController extends Controller
     public function edit($post_id, $comment_id)
     {
         $comment = Comment::findOrFail($comment_id);
+        $userRoles = User::findOrFail(auth()->id())->roles->pluck('name');
 
-        return view('comments.edit', ['post_id' => $post_id, 'comment' => $comment]);
+        if(auth()->id() == $comment->user->id || $userRoles->contains('admin')){
+            return view('comments.edit', ['post_id' => $post_id, 'comment' => $comment]);
+        } else {
+            return redirect()->route('nopermission');
+        }
     }
 
     /**

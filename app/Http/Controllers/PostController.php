@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -80,9 +81,14 @@ class PostController extends Controller
      */
     public function edit($post_id)
     {
-        $post = Post::findOrFail($post_id);
+        $userRoles = User::findOrFail(auth()->id())->roles->pluck('name');
 
-        return view('posts.edit', ['post' => $post]);
+        $post = Post::findOrFail($post_id);
+        if(auth()->id() == $post->user->id || $userRoles->contains('admin')){
+            return view('posts.edit', ['post' => $post]);
+        } else {
+            return redirect()->route('nopermission');
+        }
     }
 
     /**

@@ -18,12 +18,16 @@
         @endif
     </div>
     @endif
-    <div class="card-body">{{ $post->post }}</div>    
-    @if($post->user_id == auth()->id())
+    <div class="card-body">{{ $post->post }}</div> 
+    @php
+    use App\User;
+    $userRoles = User::findOrFail(auth()->id())->roles->pluck('name');    
+    @endphp   
+    @if($post->user_id == auth()->id() || $userRoles->contains('admin'))
     <div class="card-footer">
         <div style="width:400px">  
             <div style="float: left; width: 0px">
-                <a href="{{ route('posts.edit', ['post_id' => $post->id]) }}"><button class="btn btn-secondary">Edit</button>
+                <a href="{{ route('posts.edit', ['post_id' => $post->id]) }}"><button class="btn btn-secondary">Edit</button></a>
             </div>
             <div style="float: right; width: 340px">
                 <form method="POST"
@@ -55,7 +59,7 @@
                         
                 <div class="card-body">{{ $comment->comment }}</div>
                 
-                @if($comment->user_id == auth()->id())
+                @if($comment->user_id == auth()->id() || $userRoles->contains('admin'))
                 <div class="card-footer">
                 <div style="width:400px">  
                     <div style="float: left; width: 0px">

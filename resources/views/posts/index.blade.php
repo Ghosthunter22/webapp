@@ -1,5 +1,8 @@
 @extends('layouts.app')
-
+@php
+use App\User;
+$userRoles = User::findOrFail(auth()->id())->roles->pluck('name');    
+@endphp
 @section('title', 'Posts')
 
 @section('content')
@@ -39,7 +42,7 @@
             {{ $post->post }}
         </div>
         <a href="{{ route('posts.show', ['post_id' => $post->id]) }}" class="card-body" style="display:inline-block"><button type="submit" class="btn btn-primary">Read More</button></a>
-        @if($post->user_id == auth()->id())
+        @if($post->user_id == auth()->id() || $userRoles->contains('admin'))
             <div class="card-footer">  
                 <a href="{{ route('posts.edit', ['post_id' => $post->id]) }}"><button class="btn btn-secondary" style="display:inline-block">Edit</button>
                 <form method="POST" style="display:inline-block"
