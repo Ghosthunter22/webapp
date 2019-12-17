@@ -21,9 +21,14 @@
     <div class="card-body">{{ $post->post }}</div> 
     @php
     use App\User;
+    try{
     $userRoles = User::findOrFail(auth()->id())->roles->pluck('name');    
+    }catch(Exception $e){
+    }
     @endphp   
-    @if($post->user_id == auth()->id() || $userRoles->contains('admin'))
+    @if($post->user_id == auth()->id() )
+    @isset($userRoles)
+    @if($userRoles->contains('admin'))
     <div class="card-footer">
         <div style="width:400px">  
             <div style="float: left; width: 0px">
@@ -38,6 +43,8 @@
                 </form>
             </div>
         </div>
+        @endif
+        @endisset
     @endif
     </div>
 </div>
@@ -59,7 +66,9 @@
                         
                 <div class="card-body">{{ $comment->comment }}</div>
                 
-                @if($comment->user_id == auth()->id() || $userRoles->contains('admin'))
+                @if($comment->user_id == auth()->id())
+                @isset($userRoles)
+                @if($userRoles->contains('admin'))
                 <div class="card-footer">
                 <div style="width:400px">  
                     <div style="float: left; width: 0px">
@@ -75,6 +84,8 @@
                     </div>
                 </div>
             </div>
+            @endif
+            @endisset
                 @endif
                 
             </div>
