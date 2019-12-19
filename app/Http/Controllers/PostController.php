@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(7);
+        $posts = Post::orderBy('created_at', 'ASC')->paginate(7);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -56,7 +56,7 @@ class PostController extends Controller
         $p->save();
 
         session()->flash('message', 'Post was created.');
-        return redirect()->route('profile');
+        return redirect()->route('posts.show', ['post_id' => $p->id]);
     }
 
     /**

@@ -48,6 +48,7 @@ class ProfileController extends Controller
         $user->avatar = $avatarName;
         $user->save();
 
+        session()->flash('message', 'Profile picture was updated.');
         return back()
             ->with('success','You have successfully uploaded the image.');
 

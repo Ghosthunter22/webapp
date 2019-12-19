@@ -13,7 +13,7 @@ class GroupTableSeeder extends Seeder
     public function run()
     {
         $g = new Group;
-        $g->title = "First Group";
+        $g->title = "Computer Science";
         $g->save();
         $g->users()->attach(1);
         $g->users()->attach(2);

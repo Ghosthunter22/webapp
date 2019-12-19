@@ -47,9 +47,8 @@ try{
             {{ $post->post }}
         </div>
         <a href="{{ route('posts.show', ['post_id' => $post->id]) }}" class="card-body" style="display:inline-block"><button type="submit" class="btn btn-primary">Read More</button></a>
-        @if($post->user_id == auth()->id())
         @isset($userRoles)
-        @if($userRoles->contains('admin'))
+        @if($post->user_id == auth()->id() || $userRoles->contains('admin'))
             <div class="card-footer">  
                 <a href="{{ route('posts.edit', ['post_id' => $post->id]) }}"><button class="btn btn-secondary" style="display:inline-block">Edit</button>
                 <form method="POST" style="display:inline-block"
@@ -59,7 +58,6 @@ try{
                     <button class="btn btn-danger">Delete</button>
                 </form>
             </div>
-            @endif
             @endisset
          @endif
     </div>   

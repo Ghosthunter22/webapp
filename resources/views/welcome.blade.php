@@ -1,3 +1,5 @@
+@extends('layouts.app')
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -62,18 +64,30 @@
                 margin-bottom: 30px;
             }
         </style>
+        
     </head>
     <body>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ route('profile') }}">Profile</a>
+                    <a href="{{ route('profile') }}">
+                    <button class="btn btn-secondary">
+                        Profile
+                    </button>
+                    </a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-
+                    <a href="{{ route('login') }}">
+                    <button class="btn btn-secondary">
+                        Login
+                    </button>
+                    </a>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('register') }}">
+                        <button class="btn btn-secondary">
+                            Register
+                        </button>
+                    </a>
                         @endif
                     @endauth
                 </div>
@@ -85,19 +99,21 @@
                 </div>
 
                 <div class="links">
-                    {{-- <a href="{{ route('users.index') }}">Users</a> --}}
-                    <a href="{{ route('users.index') }}">Users</a>
-                    <a href="{{ route('posts.index') }}">Posts</a>
-                    <a href="{{ route('groups.index') }}">Groups</a>
-                    {{-- <a href="{{ route('comments.index') }}">Comments</a> --}}
-                    {{-- <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a> --}}
+                    <a href="{{ route('users.index') }}">
+                    <button class="btn btn-secondary">
+                    Users
+                    </button>
+                </a>
+                <a href="{{ route('posts.index') }}">
+                    <button class="btn btn-secondary">
+                    Posts
+                    </button>
+                </a>
+                <a href="{{ route('groups.index') }}">
+                    <button class="btn btn-secondary">
+                    Groups
+                    </button>
+                </a>
                 </div>
             </div>
         </div>

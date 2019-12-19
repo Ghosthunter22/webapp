@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+
+    protected $fillable = [
+        'comment'
+    ];
+
     //Many Comments per Post Relationship
     public function post()
     {

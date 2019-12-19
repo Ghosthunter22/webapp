@@ -10,10 +10,12 @@
     <div class="card-body">
 <form method="POST" action="{{ route('posts.update', ['post_id' => $post->id]) }}" enctype="multipart/form-data">
     @csrf
-    <p>Title: <input type="textarea" name="title"
-        value="{{ $post->title }}" class="form-control"></p>
-    <p>Post: <input type="textarea" name="post"
-        value="{{ $post->post }}" class="form-control"></p>
+    <p>Title:
+    <textarea class="form-control" rows="1" style="width:520px" name="title">{{ $post->title }}</textarea>
+    </p>
+    <p>Post:
+        <textarea class="form-control" rows="3" style="width:760px" name="post">{{ $post->post }}</textarea>
+    </p>
         <input type="hidden" name="post_id" id="post_id" value="{{ $post->id }}" />
         <div class="card-body">
             <p>Image (optional):

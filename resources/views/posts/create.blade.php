@@ -10,11 +10,13 @@
     <div class="card-body">
 <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
     @csrf
-    <p>Title: <input type="textarea" name="title"
-        value="{{ old('title') }}" class="form-control"></p>
-    <p>Post: <input type="textarea" name="post"
-        value="{{ old('post') }}" class="form-control"></p>
-        <div class="card-body">
+    <p>Title:
+    <textarea class="form-control" rows="1" style="width:520px" name="title" placeholder="Title"></textarea>
+    </p>
+    <p>Post:
+    <textarea class="form-control" rows="3" style="width:760px" name="post" placeholder="Write a post..."></textarea>
+    </p>
+    <div class="card-body">
             <p>Image (optional):
                 <input type="file" class="form-control-file" name="image" id="image" aria-describedby="fileHelp">
                 <small id="fileHelp" class="form-text text-muted">Please upload a valid image file. Size of image should not be more than 2MB.</small>

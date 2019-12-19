@@ -13,13 +13,5 @@ class CommentTableSeeder extends Seeder
     public function run()
     {
         factory(App\Comment::class, 50)->create();
-
-        $c = new Comment;
-        $c->comment ="Generic Comment";
-        $c->user_id = 51;
-        $c->post_id = 51;
-        $c->created_at= "2019-11-11 11:42:29";
-        $c->updated_at= "2019-11-11 11:42:29";
-        $c->save();
     }
 }

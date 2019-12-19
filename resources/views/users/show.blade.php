@@ -51,7 +51,7 @@
 
             
                 <h5 class="card-header" style="margin-bottom:20px">Information</h5>
-                @if(!($user->phone == null))cdC
+                @if(!($user->phone == null))
                 @if(!($user->phone->phone == null))
                 <div class="row justify-content-center">
                     <div class="card-body" style="margin-left:20px">

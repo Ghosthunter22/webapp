@@ -1,13 +1,23 @@
 @extends('layouts.app')
 
-@section('title', 'Post')
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 @section('content')
+<div id="app">
 <div class="card-body">
     <a href="{{ route('posts.index') }}"><button type="submit" class="btn btn-primary">Back to posts</button></a>
 </div>
 <div class="card" style="margin-left:10px; width:1000px">
-<h3 class="card-header"><a href="{{ route('users.show', ['id' => $user->id]) }}"><img class="rounded-circle" src="/storage/avatars/{{ $user->avatar }}" width="40" height="40"/> {{ $user->name }}</a></h3>
+<h3 class="card-header">
+    @if($post->user->id == auth()->id())
+    <a href="{{ route('profile') }}" {{ $post->user->name }}>
+@else
+    <a href="{{ route('users.show', ['id' => $post->user_id]) }}">
+@endif
+        <img class="rounded-circle" src="/storage/avatars/{{ $user->avatar }}" width="40" height="40"/> {{ $user->name }}
+    </a>
+</h3>
     <h5 class="modal-header"></a>{{ $post->title }}</h5> 
 @if(!(($post->image) == null))
     <div class="modal-header">
@@ -26,9 +36,8 @@
     }catch(Exception $e){
     }
     @endphp   
-    @if($post->user_id == auth()->id() )
     @isset($userRoles)
-    @if($userRoles->contains('admin'))
+    @if($post->user_id == auth()->id() || $userRoles->contains('admin'))
     <div class="card-footer">
         <div style="width:400px">  
             <div style="float: left; width: 0px">
@@ -43,32 +52,41 @@
                 </form>
             </div>
         </div>
-        @endif
         @endisset
     @endif
     </div>
 </div>
-    <div style="margin-left:20px">
-<h5 style="margin-top:10px">Comments:</h5>
+
+<div style="margin-left:20px">
+    <h5 style="margin-top:10px">Comments:</h5>
+
+<div style="margin-bottom:50px">
+    <form method="POST" action="{{ route('comments.store')}}">
+        @csrf
+        <textarea class="form-control" rows="3" style="width:800px" name="comment" type="text" placeholder="Leave a comment" value="{{ old('comment') }}" v-model="commentBox"></textarea>
+        <input type="hidden" name="post_id" id="post_id" value="{{ $post->id }}" />
+        <input type="submit" style="margin-top:10px" value="Save Comment" class="btn btn-success">
+    </form>
+</div>
 
 <ul class="pagination"> 
         @if(!(($comments->first()) == null))
             @foreach($comments as $comment)
             <div style="margin-block-start:10px; width:800px">
                 <div class="card">
-                    @if($post->user->id == auth()->id())
-                    <h6 class="card-header"><a href="{{ route('profile') }}">
+                    <h6 class="card-header">
+                    @if($comment->user->id == auth()->id())
+                    <a href="{{ route('profile') }}">
                     @else
-                    <h6 class="card-header"><a href="{{ route('users.show', ['id' => $comment->user_id]) }}">
-                        @endif
+                    <a href="{{ route('users.show', ['id' => $comment->user_id]) }}">
+                    @endif
                     <img class="rounded-circle" src="/storage/avatars/{{ $comment->user()->get()->first()->avatar }}" width="30" height="30"/>
                         {{ $comment->user()->get()->first()->name }}</a></h6>
                         
                 <div class="card-body">{{ $comment->comment }}</div>
                 
-                @if($comment->user_id == auth()->id())
                 @isset($userRoles)
-                @if($userRoles->contains('admin'))
+                @if($comment->user_id == auth()->id() || $userRoles->contains('admin'))
                 <div class="card-footer">
                 <div style="width:400px">  
                     <div style="float: left; width: 0px">
@@ -84,10 +102,8 @@
                     </div>
                 </div>
             </div>
-            @endif
             @endisset
                 @endif
-                
             </div>
             @endforeach
             </div>
@@ -95,7 +111,52 @@
             <p>No comments yet! Be the first one to comment.</p>
         @endif
     </ul>
-    <div class="card-body"><a href="{{ route('comments.create', ['post_id' => $post->id]) }}"><button type="submit" class="btn btn-primary">Comment</button></a>
-    </div>
-    </div>
+</div>
+</div>
+{{-- @endsection
+
+@section('scripts') --}}
+    <script>
+        console.log("IN SCRIPT");
+        const app = new Vue({
+            el: '#app',
+            data: {
+                comments: {},
+                commentBox: '',
+                post: {!! $post->toJson() !!},
+                user: {!! Auth::check() ? auth()->user()->toJson() : 'null' !!}
+            },
+            mounted() {
+                console.log("MOUNTED");
+                this.getComments();
+            },
+            methods: {
+                getComments() {
+                    console.log("GET COMMENTS");
+                    axios.get('/api/posts/'+this.post.id+'/comments')
+                         .then((response) => {
+                             this.comments = response.data
+                         })
+                         .catch(function (error) {
+                             console.log(error);
+                         });
+                },
+                postComment() {
+                    console.log("POST COMMENT");
+                    axios.post('/api/posts/'+this.post.id+'/comment', {
+                        api_token: this.user.api_token,
+                        comment: this.commentBox
+                    })
+                    .then((response) => {
+                       this.comments.unshift(response.data);
+                       this.commentBox = ''; 
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+                }
+            }
+        });
+
+    </script>
 @endsection

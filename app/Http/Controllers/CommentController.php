@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Post;
 use App\Comment;
 use Illuminate\Http\Request;
 
@@ -12,10 +14,10 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($post_id)
     {
-        $comments = Comment::all();
-        return view('comments.index', ['comments' => $comments]);
+        $post = Post::findOrFail($post_id);
+        return response()->json($post->comments()->with('user')->latest()->get());
     }
 
     /**
@@ -48,6 +50,22 @@ class CommentController extends Controller
 
         session()->flash('message', 'Comment was created.');
         return redirect()->route('posts.show', ['post_id' => $post_id]);
+    }
+
+    public function storeComment(Request $request, $post_id)
+    {
+        $post = Post::findOrFail($post_id);
+        $validatedData = $request->validate([
+            'comment' => 'required|max:255'
+        ]);
+        $comment = $post->comments()->create([
+            'comment' => $validatedData['comment'],
+            'user_id' => auth()->id(),
+        ]);
+
+        $comment = Comment::findOrFail($comment->id)->with('user')->first();
+
+        return $comment->toJson();
     }
 
     /**

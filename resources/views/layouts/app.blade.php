@@ -76,14 +76,18 @@
             </div>
         </nav>
         @if (session('message'))
-            <p><b>{{ session('message') }}</b></p>
+            <p class="modal-header" style="margin-left:20px; margin-top:20px; width:fit-content">
+                <span class="text-success"><b>{{ session('message') }}</b></span>
+            </p>
         @endif
         @if ($errors->any())
-        <div>
+        <div class="card" style="margin-left:20px; margin-top:20px; width:fit-content">
+            <div class="card-header">
             Errors:
-            <ul>
+            </div>
+            <ul class="card-body">
                 @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+                <li class="list-group-item-danger">{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
